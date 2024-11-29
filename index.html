@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jogo de Adivinhação de Cores</title>
+</head>
+<body>
+    <script>
+        // Lista completa de todas as cores fornecidas
+        const todasAsCores = [
+            "AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", 
+            "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", 
+            "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", 
+            "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGreen", "DarkKhaki", "DarkMagenta", 
+            "DarkOliveGreen", "DarkOrange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", 
+            "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", 
+            "DimGray", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", 
+            "GhostWhite", "Gold", "GoldenRod", "Gray", "Green", "GreenYellow", "HoneyDew", "HotPink", 
+            "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", 
+            "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", 
+            "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", 
+            "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", 
+            "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", 
+            "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", 
+            "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", 
+            "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", 
+            "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", 
+            "RebeccaPurple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", 
+            "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow", 
+            "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", 
+            "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"
+        ];
+
+        // Função para embaralhar o array
+        function embaralhar(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Selecionar 10 cores aleatórias
+        const coresSelecionadas = embaralhar(todasAsCores).slice(0, 10);
+
+        // Escolher uma cor aleatória entre as 10 selecionadas
+        const corEscolhida = coresSelecionadas[Math.floor(Math.random() * coresSelecionadas.length)];
+
+        // Exibir as cores disponíveis
+        alert("Estou pensando em uma destas cores:\n" + coresSelecionadas.join(", "));
+
+        let tentativa = null;
+
+        while (tentativa !== corEscolhida) {
+            // Solicitar uma entrada do usuário
+            tentativa = prompt("Qual cor você acha que estou pensando?");
+
+            if (!tentativa) {
+                alert("Jogo cancelado.");
+                break;
+            }
+
+            if (tentativa === corEscolhida) {
+                // Se o usuário acertar
+                document.body.style.backgroundColor = corEscolhida;
+                alert("Parabéns! Você acertou! A cor era " + corEscolhida);
+                break;
+            } else {
+                // Fornecer uma dica
+                if (tentativa < corEscolhida) {
+                    alert("Desculpe! Sua tentativa não está correta.\nDica: Sua cor vem antes da minha na ordem alfabética.");
+                } else {
+                    alert("Desculpe! Sua tentativa não está correta.\nDica: Sua cor vem depois da minha na ordem alfabética.");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
